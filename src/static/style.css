@@ -1,0 +1,9 @@
+#input{
+    position:absolute;
+	top: 100px;
+	left: 100px;
+}
+
+#mapped{
+    position:relative;
+}
