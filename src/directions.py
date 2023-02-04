@@ -41,7 +41,29 @@ def getMPG(vehicleNumber):
 
     return mydata['avgMpg']
 
+# takes vehicleNumber 
+def getVehicleNumber(year, make, model): # add try and except
 
+    # accounts for all sorts of capitalization
+    make = make[0].upper() + make[1:len(make)].lower()
+    model = model[0].upper() + model[1:len(make)].lower()
+
+    fuel_url = 'https://www.fueleconomy.gov/ws/rest/vehicle/menu/options?year=' + str(year) + '&make=' + make + '&model=' + model
+
+    headers = {'Accept': 'application/json'} # takes json file
+    response = requests.get(fuel_url, headers=headers) # gets the info
+
+    dict_str = response.content.decode("UTF-8") # decodes 
+    mydata = ast.literal_eval(dict_str) # decodes
+
+    #for data in mydata['menuItem']: # disregarding different car types, pick first one
+        #print(data['text'])
+
+    first_value = next(iter(mydata['menuItem']))
+    value = first_value['value']
+    print(value) # utilizes first car type given
+    
+    return value
 
 
 # extraxts start ,ocations and distance
