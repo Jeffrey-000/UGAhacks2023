@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>car website</title>
+        {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title>{% block title %}{% endblock %} car website</title>
+        <link rel="icon" type="image/ico" href="{{ url_for('static', filename='logo.ico') }}">
+        <style>
+            #input{
+                margin: 10px;
+                position:absolute;
+                top: 0px;
+                left: 0px;
+            }
+
+            #mapped{
+            }
+          </style>
+        {% endblock %}
     </head>
     <body>
-        <form action="/" method="POST">
-            <input type="text" name="start" placeholder="Starting Location">
-            <input type="text" name="end" placeholder="Ending Location">
-            <button type="submit">Submit</button>
-        </form>
-        {% block body %} {% endblock %}
+        <div id="input">
+            <form action="/" method="POST">
+                <div style="margin: 5px;">
+                    <input type="text" name="model" placeholder="Model">
+                    <input type="text" name="year" placeholder="Year">
+                    <input type="text" name="make" placeholder="Make">
+                </div>
+                <div style="margin: 5px;">
+                    <input type="text" name="start" placeholder="Starting Location">
+                    <input type="text" name="end" placeholder="Ending Location">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        {% block body %}{% endblock %}
     </body>
 </html>

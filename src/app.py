@@ -14,7 +14,7 @@ googlemapsurl = "https://www.google.com/maps/embed/v1/place?key=" + KEY + "&q=Sp
 
 @app.route('/')
 def home():
-    return render_template("home.html", url=googlemapsurl)
+    return render_template("map.html", url=googlemapsurl)
 
 @app.route('/', methods=['POST', 'GET'])
 def calc(start=None, end=None):
