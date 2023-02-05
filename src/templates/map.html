@@ -18,9 +18,7 @@
             <td>
                 Price
             </td>
-            <td>
-                Link
-            </td>
+           
         </tr>
         {% for x in db %}
         <tr>
@@ -30,12 +28,16 @@
             <td>
                 {{x[1]}}
             </td>
-            <td>
-                <a href="url" link="{{x[2]}}">Click Me to update map</a>
-            </td>
+            
         </tr>
     
         {% endfor %}
+        <td>
+            Total for Trip
+        </td>
+        <td>
+            {{trip}}
+        </td>
     </table>
 </h1>
 {% endblock %}

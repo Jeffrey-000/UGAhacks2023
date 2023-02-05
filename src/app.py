@@ -18,15 +18,16 @@ app = onlyfans(your_mom)
 
 brain = directions(GKEY, RKEY, 0, 0)
 
+currentUrl = ''
+
 @app.route('/')
 def home():
     return render_template("map.html", url=brain.makeUrl("default"))
 
 @app.route('/', methods=['POST', 'GET'])
-def calc(start=None, end=None, mpg=0, tank=0):
+def calc(start=None, end=None, mpg=1, tank=1):
     display = "default"
     if request.method == "POST":
-        print("if statment")
         start = request.form['start']
         end = request.form['end']
         mpg = request.form['mpg']
@@ -37,27 +38,30 @@ def calc(start=None, end=None, mpg=0, tank=0):
             end = brain.geocoding(end)
             route = brain.detailedDistances(start, end)
             display = brain.doMeth(route)
-            makeTable(db=justkillmerightnow, data=display, link=brain.makeUrl(display))
+            currentUrl = brain.makeUrl(display)
+            average  = makeTable(db=justkillmerightnow, data=display, link=currentUrl)
+            distance = route['route']['distance'] / 1609.34
+            length = distance / (int(mpg) * int(tank))
         except:
             print("exception")
-    return render_template("map.html", url=brain.makeUrl(display), db=justkillmerightnow)
+    return render_template("map.html", url=currentUrl, db=justkillmerightnow, trip=length * average)
 
-@app.route('/<url>')
-def waypoint(url):
-    return render_template("map.html", url=url, db=justkillmerightnow)
+
 
 def makeTable(db=None, data=[], link=""):
+    total = 0
+    counter = 0
     for x in data:
         cityName = brain.getCity(x[0], x[1])
-        print(cityName)
-        gasPrice = "{:.2f}".format(getGasPrices(x[0], x[1], 1)[0])
-        print(gasPrice)
-        link = link + "&waypoints=" + str(x[0]) + "," + str(x[1])
+        gasPrice = getGasPrices(x[0], x[1], 1)[0]
+        total += gasPrice
+        gasPrice = "{:.2f}".format(gasPrice)
+        link = "&waypoints=" + str(x[0]) + "," + str(x[1])
         link = urllib.parse.quote_plus(link)
-        print(link)
         y = (cityName, '$' + gasPrice, link)
         db.append(y)
-
+        counter += 1
+    return total / counter
 
 
 #opens a developmental server when play button is run
