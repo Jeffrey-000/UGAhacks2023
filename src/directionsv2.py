@@ -63,16 +63,6 @@ class directions:
         URL = "https://www.google.com/maps/embed/v1/directions?key=" + self.GKEY 
         return URL + start + end 
 
-    def makeTable(self, db=None, data=[], link=""):
-        for x in data:
-            cityName = self.getCity(x[0], x[1])
-            print(cityName)
-            gasPrice = getGasPrices(x[0], x[1], 1)[0]
-            print(gasPrice)
-            link = link + "&waypoints=" + str(x[0]) + "," + str(x[1])
-            print(link)
-            y = (cityName, gasPrice, link)
-            db.append(y)
 
     def getCity(self, lat, long):
         URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=' + self.GKEY
