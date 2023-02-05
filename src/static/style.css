@@ -1,9 +1,33 @@
+html, body{
+    background-color:antiquewhite;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
 #input{
-    position:absolute;
-	top: 100px;
-	left: 100px;
+    background-color: aqua;
+    padding: 5px;
+    text-align: center;
 }
 
 #mapped{
-    position:relative;
+    height: 50%;
+    width: 100%;
+}
+
+table{
+    text-align: center;
+    margin: 0;
+    width: 100%;
+}
+
+tr{
+    border: 1px solid;
+    width: 100%;
+}
+
+td{
+    border: 1px solid;
+    width: 25%;
 }

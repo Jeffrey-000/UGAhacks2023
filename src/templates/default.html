@@ -2,37 +2,21 @@
 <html>
     <head>
         {% block head %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <title>{% block title %}{% endblock %} car website</title>
 
 
         <link rel="icon" type="image/ico" href="{{ url_for('static', filename='logo.ico') }}">
-        <style>
-            .input{
-                margin: 5px;
-                text-align: center;
-            }
-
-            #mapped{
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
-          </style>
         {% endblock %}
     </head>
     <body>
         <div>
             <form action="/" method="POST">
-                <div class="input">
+                <div id="input">
                     <input type="text" name="mpg" placeholder="Miles Per Gallon">
-                    <input type="text" name="tank" placeholder="Tank Size">
-                </div>
-                <div class="input">
+                    <input type="text" name="tank" placeholder="Tank Size in mpg">
                     <input type="text" name="start" placeholder="Starting Location">
                     <input type="text" name="end" placeholder="Ending Location">
-                </div>
-                <div class="input">
                     <button type="submit">Submit</button>
                 </div>
             </form>
