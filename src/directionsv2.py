@@ -1,5 +1,6 @@
 import requests
 import urllib.parse
+from gasprices import getGasPrices
 
 class directions:
     def __init__(self, GKEY, RKEY, mpg, size):
@@ -14,7 +15,6 @@ class directions:
   
     #turns list of points on a direction route
     def detailedDistances(self, start, stop):
-        print("detailed ran")
         URL = "https://trueway-directions2.p.rapidapi.com/FindDrivingRoute?rapidapi-key=" + self.RKEY + "&stops="
         data = requests.get(URL + str(start['lat']) + ',' + str(start['lng']) + ';' + str(stop['lat']) + ',' + str(stop['lng']))
         if data.status_code != 200:
@@ -22,7 +22,6 @@ class directions:
         return data.json()      
 
     def geocoding(self, address):
-        print("geocoding yes")
         URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=' + self.GKEY
         data = requests.get(URL + '&address=' + urllib.parse.quote_plus(address))
         if data.status_code != 200:\
@@ -30,7 +29,6 @@ class directions:
         return data.json()['results'][0]['geometry']['location']
     
     def doMeth(self, data):
-        print("do meth rran")
         #distance of route
         distance = data['route']['distance']
         #list of all data points for route
@@ -55,13 +53,37 @@ class directions:
                 counter += index
         return importantPoints
 
-    def makeUrl(self, args):
-        print("make url ran")
+    def makeUrl(self, args, waypoint=False):
         if args == "default":
             return "https://www.google.com/maps/embed/v1/place?key=" + self.GKEY + "&q=University+of+Georgia"
+        if waypoint:
+            return "https://www.google.com/maps/embed/v1/directions?key=" + self.GKEY + args
         start = "&origin={},{}".format(args[0][0], args[0][1])
         end = "&destination={},{}".format(args[-1][0], args[-1][1])
         URL = "https://www.google.com/maps/embed/v1/directions?key=" + self.GKEY 
-        print(URL + start + end )
         return URL + start + end 
+
+    def makeTable(self, db=None, data=[], link=""):
+        for x in data:
+            cityName = self.getCity(x[0], x[1])
+            print(cityName)
+            gasPrice = getGasPrices(x[0], x[1], 1)[0]
+            print(gasPrice)
+            link = link + "&waypoints=" + str(x[0]) + "," + str(x[1])
+            print(link)
+            y = (cityName, gasPrice, link)
+            db.append(y)
+
+    def getCity(self, lat, long):
+        URL = 'https://maps.googleapis.com/maps/api/geocode/json?key=' + self.GKEY
+        args = "&latlng=" + str(lat) + "," + str(long)
+        data = requests.get(URL + args + "&result_type=locality|administrative_area_level_1").json()
+        data =data['results'][0]['address_components']
+        string = ''
+        for x in data:
+            if x != None:
+                string = string + " " + x['long_name']
+        return string
+        
+
 

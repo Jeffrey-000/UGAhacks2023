@@ -12,7 +12,32 @@
         src={{url}}>
     </iframe> 
 
-
-   
-    <h1 class="input">{{start}} {{end}}</h1>
+    <table>
+        <tr>
+            <td>
+                City
+            </td>
+            <td>
+                Price
+            </td>
+            <td>
+                Link
+            </td>
+        </tr>
+        {% for x in db %}
+        <tr>
+            <td>
+                {{x[0]}}
+            </td>
+            <td>
+                {{x[1]}}
+            </td>
+            <td>
+                {{x[2]}}
+            </td>
+        </tr>
+    
+        {% endfor %}
+    </table>
+</h1>
 {% endblock %}
