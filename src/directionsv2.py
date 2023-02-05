@@ -8,7 +8,9 @@ class directions:
         self.metersPerTank=mpg * size * 1609.34
 
     def updateVar(self, mpg, size):
-        self.metersPerTank=mpg * size * 1609.34
+        if len(mpg) != 0 and len(size) != 0:
+            if type(mpg) == int and type(size) == int:
+                self.metersPerTank=mpg * size * 1609.34
   
     #turns list of points on a direction route
     def detailedDistances(self, start, stop):

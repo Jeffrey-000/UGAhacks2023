@@ -28,7 +28,7 @@ def calc(start=None, end=None, mpg=0, tank=0):
         mpg = request.form['mpg']
         tank = request.form['tank']
         try:
-            #brain.updateVar(mpg, tank)
+            brain.updateVar(mpg, tank)
             start = brain.geocoding(start)
             end = brain.geocoding(end)
             route = brain.detailedDistances(start, end)
