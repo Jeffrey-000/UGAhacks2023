@@ -45,8 +45,8 @@ def getMPG(vehicleNumber):
 def getVehicleNumber(year, make, model): # add try and except
 
     # accounts for all sorts of capitalization
-    make = make[0].upper() + make[1:len(make)].lower()
-    model = model[0].upper() + model[1:len(make)].lower()
+    # make = make[0].upper() + make[1:len(make)].lower()
+    # model = model[0].upper() + model[1:len(make)].lower() #too many variations
 
     fuel_url = 'https://www.fueleconomy.gov/ws/rest/vehicle/menu/options?year=' + str(year) + '&make=' + make + '&model=' + model
 
