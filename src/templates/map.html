@@ -1,7 +1,7 @@
 {% extends 'default.html' %}
 
 {%block body%}
-    <iframe
+   <iframe
         id="mapped"
         width="1000"
         height="450"
@@ -10,7 +10,9 @@
         allowfullscreen
         referrerpolicy="no-referrer-when-downgrade"
         src={{url}}>
-    </iframe>
+    </iframe> 
 
+
+   
     <h1 class="input">{{start}} {{end}}</h1>
 {% endblock %}
